@@ -39,8 +39,8 @@ N/A
 ## Questions
 For questions, contact us via email or find us on GitHub
 
-Ward: wardv@tirf.ca; https://github.com/github.com/Wardvanlaar
-Kylee: mildlymadgraphics@gmail.com
-Jacob: jacob.tobin.liberty@gmail.com; https://github.com/JacobGit3
-Sarah: sarahs@tirf.ca; 
+* Ward: wardv@tirf.ca; https://github.com/github.com/Wardvanlaar
+* Kylee: mildlymadgraphics@gmail.com
+* Jacob: jacob.tobin.liberty@gmail.com; https://github.com/JacobGit3
+* Sarah: sarahs@tirf.ca; https://github.com/SimmonsSM
   
