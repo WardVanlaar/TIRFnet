@@ -5,9 +5,6 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    post_ids: [ String ]
-    communities: [ String ]
-    comment_ids: [ String ]
   }
 
   type Auth {
@@ -17,6 +14,8 @@ const typeDefs = gql`
 
   type Query {
     me: User
+    users: [User]
+    user(username: String!): User
   }
 
   type Mutation {

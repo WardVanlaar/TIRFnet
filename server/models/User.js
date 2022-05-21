@@ -20,9 +20,9 @@ const userSchema = new Schema(
       required: true,
       minlength: 12
     },
-    communities: [{ community: String }],
-    post_ids: [{ post_id: String }],
-    comment_ids: [{ comment_id: String }]
+    // communities: [{ community: String }],
+    // post_ids: [{ post_id: String }],
+    // comment_ids: [{ comment_id: String }]
   },
   {
     toJSON: {
