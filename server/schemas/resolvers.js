@@ -1,5 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Post } = require('../models');
+const Community = require('../models/Community');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -100,6 +101,9 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!');
+    },
+    addCommunity: async (parent, args) => {
+     const community = await Community.create(args);
     }
   }
 };

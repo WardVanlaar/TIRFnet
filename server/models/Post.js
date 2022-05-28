@@ -20,6 +20,7 @@ const postSchema = new Schema(
       required: true
     },
     comments: [commentSchema]
+    // Add community reference
   },
   {
     toJSON: {

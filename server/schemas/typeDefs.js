@@ -26,6 +26,14 @@ const typeDefs = gql`
     username: String
   }
 
+  type Community {
+    _id: ID
+    communityName: String
+    communityBio: String
+    users: [User]
+    posts: [Post]
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -37,6 +45,8 @@ const typeDefs = gql`
     user(username: String!): User
     posts(username: String): [Post]
     post(_id: ID!): Post
+    communities: [Community]
+    community(communityName: String!): Community
   }
 
   type Mutation {
@@ -45,6 +55,7 @@ const typeDefs = gql`
     addPost(postText: String!): Post
     addComment(postId: ID!, commentBody: String!): Post
     addFriend(friendId: ID!): User
+    addCommunity(communityName: String!, communityBio: String!): Community
   }
 `;
 

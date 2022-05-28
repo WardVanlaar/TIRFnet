@@ -38,6 +38,7 @@ const userSchema = new Schema(
         ref: 'User'
       }
     ]
+    // Add groups when implemented
   },
   {
     toJSON: {
