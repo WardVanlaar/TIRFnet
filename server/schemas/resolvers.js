@@ -1,33 +1,33 @@
-const { AuthenticationError } = require('apollo-server-express');
-const { User, Post } = require('../models');
-const Community = require('../models/Community');
-const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require("apollo-server-express");
+const { User, Post } = require("../models");
+const Community = require("../models/Community");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password')
-          .populate('posts')
-          .populate('friends')
+          .select("-__v -password")
+          .populate("posts")
+          .populate("friends");
 
         return userData;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
     users: async () => {
       return User.find()
-        .select('-__v -password')
-        .populate('posts')
-        .populate('friends')
+        .select("-__v -password")
+        .populate("posts")
+        .populate("friends");
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
-        .select('-__v -password')
-        .populate('friends')
-        .populate('posts')
+        .select("-__v -password")
+        .populate("friends")
+        .populate("posts");
     },
     posts: async (parent, { username }) => {
       const params = username ? { username } : {};
@@ -35,7 +35,19 @@ const resolvers = {
     },
     post: async (parent, { _id }) => {
       return Post.findOne({ _id });
-    }
+    },
+    communities: async () => {
+      return Community.find()
+        .select("-__v")
+        .populate("posts")
+        .populate("users");
+    },
+    community: async (parent, { communityName }) => {
+      return Community.findOne({ communityName })
+        .select("-__v")
+        .populate("posts")
+        .populate("users");
+    },
   },
 
   Mutation: {
@@ -49,13 +61,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
@@ -63,7 +75,10 @@ const resolvers = {
     },
     addPost: async (parent, args, context) => {
       if (context.user) {
-        const post = await Post.create({ ...args, username: context.user.username });
+        const post = await Post.create({
+          ...args,
+          username: context.user.username,
+        });
 
         await User.findByIdAndUpdate(
           { _id: context.user._id },
@@ -71,23 +86,34 @@ const resolvers = {
           { new: true }
         );
 
+        // Link to community Testing
+        // await Community.findByIdAndUpdate(
+        //   { _id: args.communityId },
+        //   { $push: { posts: post._id } },
+        //   { new: true }
+        // );
+
         return post;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     addComment: async (parent, { postId, commentBody }, context) => {
       if (context.user) {
         const updatedPost = await Post.findOneAndUpdate(
           { _id: postId },
-          { $push: { comment: { commentBody, username: context.user.username } } },
+          {
+            $push: {
+              comment: { commentBody, username: context.user.username },
+            },
+          },
           { new: true, runValidators: true }
         );
 
         return updatedPost;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     addFriend: async (parent, { friendId }, context) => {
       if (context.user) {
@@ -95,17 +121,19 @@ const resolvers = {
           { _id: context.user._id },
           { $addToSet: { friends: friendId } },
           { new: true }
-        ).populate('friends');
+        ).populate("friends");
 
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
     addCommunity: async (parent, args) => {
-     const community = await Community.create(args);
-    }
-  }
+      const community = await Community.create(args);
+
+      return community;
+    },
+  },
 };
 
 module.exports = resolvers;

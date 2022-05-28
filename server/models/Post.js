@@ -1,38 +1,44 @@
-const { Schema, model } = require('mongoose');
-const commentSchema = require('./Comment');
-const dateFormat = require('../utils/dateFormat');
+const { Schema, model } = require("mongoose");
+const commentSchema = require("./Comment");
+const dateFormat = require("../utils/dateFormat");
 
 const postSchema = new Schema(
   {
     postText: {
       type: String,
-      required: 'You need to leave a thought!',
+      required: "You need to leave a thought!",
       minlength: 1,
-      maxlength: 280
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => dateFormat(timestamp)
+      get: (timestamp) => dateFormat(timestamp),
     },
     username: {
       type: String,
-      required: true
+      required: true,
     },
-    comments: [commentSchema]
-    // Add community reference
+    comments: [commentSchema],
+    community: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Community",
+        required: true,
+      },
+    ],
   },
   {
     toJSON: {
-      getters: true
-    }
+      getters: true,
+    },
   }
 );
 
-postSchema.virtual('commentCount').get(function() {
+postSchema.virtual("commentCount").get(function () {
   return this.comments.length;
 });
 
-const Post = model('Post', postSchema);
+const Post = model("Post", postSchema);
 
 module.exports = Post;
