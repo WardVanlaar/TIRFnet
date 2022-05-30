@@ -128,7 +128,7 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    addCommunity: async (parent, args) => {
+    createCommunity: async (parent, args) => {
       const community = await Community.create(args);
 
       return community;

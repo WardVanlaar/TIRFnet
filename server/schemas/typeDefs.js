@@ -12,6 +12,7 @@ const typeDefs = gql`
 
   type Post {
     _id: ID
+    postTitle: String
     postText: String
     createdAt: String
     username: String
@@ -52,10 +53,10 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPost(postText: String!): Post
+    addPost(postTitle: String!, postText: String!): Post
     addComment(postId: ID!, commentBody: String!): Post
     addFriend(friendId: ID!): User
-    addCommunity(communityName: String!, communityBio: String!): Community
+    createCommunity(communityName: String!, communityBio: String!): Community
   }
 `;
 
