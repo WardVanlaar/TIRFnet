@@ -24,10 +24,10 @@ export const LOG_IN = gql`
   }
 `;
 
-export const ADD_POST = gql``;
+// export const ADD_POST = gql``;
 
-export const ADD_COMMENT = gql``;
+// export const ADD_COMMENT = gql``;
 
-export const ADD_FRIEND = gql``;
+// export const ADD_FRIEND = gql``;
 
-export const CREATE_COMMUNITY = gql``;
+// export const CREATE_COMMUNITY = gql``;

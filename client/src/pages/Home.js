@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <main>
       <div className="flex-row justify-space-between">
-        <h1> Harry is a bitch </h1>
+        <h1> Test </h1>
       </div>
     </main>
   );
