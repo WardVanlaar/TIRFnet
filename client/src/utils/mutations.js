@@ -30,4 +30,21 @@ export const LOG_IN = gql`
 
 // export const ADD_FRIEND = gql``;
 
-// export const CREATE_COMMUNITY = gql``;
+export const CREATE_COMMUNITY = gql`
+  mutation Mutation($communityName: String!, $communityBio: String!) {
+    createCommunity(
+      communityName: $communityName
+      communityBio: $communityBio
+    ) {
+      communityName
+      _id
+      communityBio
+      users {
+        username
+      }
+      posts {
+        postTitle
+      }
+    }
+  }
+`;

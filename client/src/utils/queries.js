@@ -1,14 +1,20 @@
 import { gql } from "@apollo/client";
 
-export const QUERY_ME = gql``;
+// export const QUERY_ME = gql``;
 
-export const QUERY_USERS = gql``;
+// export const QUERY_USERS = gql``;
 
-export const QUERY_USER = gql``;
+// export const QUERY_USER = gql`
+//   {
+//     users {
+//       username
+//     }
+//   }
+// `;
 
-export const QUERY_POSTS = gql``;
+// export const QUERY_POSTS = gql``;
 
-export const QUERY_POST = gql``;
+// export const QUERY_POST = gql``;
 
 export const QUERY_COMMUNITIES = gql`
   {
@@ -19,4 +25,10 @@ export const QUERY_COMMUNITIES = gql`
   }
 `;
 
-export const QUERY_COMMUNITY = gql``;
+// export const QUERY_COMMUNITY = gql`
+//   query community($communityName: String!) {
+//     community(communityName: $communityName) {
+//       communityName
+//     }
+//   }
+// `;
