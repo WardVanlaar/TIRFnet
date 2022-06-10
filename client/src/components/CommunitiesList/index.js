@@ -9,7 +9,7 @@ const CommunitiesList = ({ communities }) => {
           <div key={community._id} className="card mb-3">
             <p className="card-header">
               <Link
-                to={`/community/${community.communityName}`}
+                to={`/community/${community._id}`}
                 style={{ fontWeight: 700 }}
                 className="text-light"
               >

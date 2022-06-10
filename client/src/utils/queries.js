@@ -25,10 +25,21 @@ export const QUERY_COMMUNITIES = gql`
   }
 `;
 
-// export const QUERY_COMMUNITY = gql`
-//   query community($communityName: String!) {
-//     community(communityName: $communityName) {
-//       communityName
-//     }
-//   }
-// `;
+export const QUERY_COMMUNITY = gql`
+  query community($id: ID!) {
+    community(_id: $id) {
+      _id
+      communityName
+      communityBio
+      users {
+        username
+      }
+      posts {
+        postTitle
+        postText
+        createdAt
+        username
+      }
+    }
+  }
+`;

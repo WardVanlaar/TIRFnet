@@ -21,7 +21,7 @@ const Home = () => {
           ) : (
             <CommunitiesList
               communities={Communities}
-              title="Some Feed for Thought(s)..."
+              title="Our Communities"
             />
           )}
         </div>

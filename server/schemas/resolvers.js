@@ -42,8 +42,8 @@ const resolvers = {
         .populate("posts")
         .populate("users");
     },
-    community: async (parent, { communityName }) => {
-      return Community.findOne({ communityName })
+    community: async (parent, { _id }) => {
+      return Community.findOne({ _id })
         .select("-__v")
         .populate("posts")
         .populate("users");
@@ -128,10 +128,16 @@ const resolvers = {
 
       throw new AuthenticationError("You need to be logged in!");
     },
-    createCommunity: async (parent, args) => {
-      const community = await Community.create(args);
+    createCommunity: async (parent, args, context) => {
+      if (context.user) {
+        const community = await Community.create({
+          ...args,
+          users: context.user._id,
+        });
 
-      return community;
+        return community;
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };
