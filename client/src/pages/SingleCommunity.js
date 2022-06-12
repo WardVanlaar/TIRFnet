@@ -1,9 +1,10 @@
 // Import Dependencies
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // Import Components
 import PostList from "../components/PostList";
+import PostForm from "../components/PostForm";
 
 // Import Utils
 import Auth from "../utils/auth";
@@ -19,6 +20,8 @@ const SingleCommunity = (props) => {
 
   const community = data?.community || {};
 
+  const loggedIn = Auth.loggedIn();
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -33,8 +36,11 @@ const SingleCommunity = (props) => {
           <p>{community.communityBio}</p>
         </div>
       </div>
-      {Auth.loggedIn() && community.posts > 0 && (
-        <PostList posts={community.posts} />
+      {loggedIn && (
+        <div className="post-holder">
+          <PostList posts={community.posts} />
+          <PostForm />
+        </div>
       )}
     </div>
   );

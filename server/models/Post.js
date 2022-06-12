@@ -26,13 +26,6 @@ const postSchema = new Schema(
       required: true,
     },
     comments: [commentSchema],
-    community: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Community",
-        required: true,
-      },
-    ],
   },
   {
     toJSON: {

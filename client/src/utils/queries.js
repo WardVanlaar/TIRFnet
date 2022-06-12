@@ -1,6 +1,20 @@
 import { gql } from "@apollo/client";
 
-// export const QUERY_ME = gql``;
+export const QUERY_ME = gql`
+  {
+    me {
+      _id
+      username
+      email
+      posts {
+        _id
+        postTitle
+        postText
+        createdAt
+      }
+    }
+  }
+`;
 
 // export const QUERY_USERS = gql``;
 
@@ -12,7 +26,18 @@ import { gql } from "@apollo/client";
 //   }
 // `;
 
-// export const QUERY_POSTS = gql``;
+// Thought this was necessary it is not
+export const QUERY_POSTS = gql`
+  query posts($ids: [ID!]!) {
+    posts(_id: $ids) {
+      _id
+      postTitle
+      postText
+      createdAt
+      username
+    }
+  }
+`;
 
 // export const QUERY_POST = gql``;
 
@@ -35,10 +60,12 @@ export const QUERY_COMMUNITY = gql`
         username
       }
       posts {
+        _id
         postTitle
         postText
         createdAt
         username
+        commentCount
       }
     }
   }

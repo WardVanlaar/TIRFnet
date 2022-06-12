@@ -9,8 +9,7 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
-          .populate("posts")
-          .populate("friends");
+          .populate("posts");
 
         return userData;
       }
@@ -29,9 +28,11 @@ const resolvers = {
         .populate("friends")
         .populate("posts");
     },
-    posts: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+    // currently not necessary
+    posts: async (parent, { ids }) => {
+      return Post.find()
+        .where({ _id: { $in: ids } })
+        .sort({ createdAt: -1 });
     },
     post: async (parent, { _id }) => {
       return Post.findOne({ _id });
@@ -76,7 +77,8 @@ const resolvers = {
     addPost: async (parent, args, context) => {
       if (context.user) {
         const post = await Post.create({
-          ...args,
+          postTitle: args.postTitle,
+          postText: args.postText,
           username: context.user.username,
         });
 
@@ -86,12 +88,11 @@ const resolvers = {
           { new: true }
         );
 
-        // Link to community Testing
-        // await Community.findByIdAndUpdate(
-        //   { _id: args.communityId },
-        //   { $push: { posts: post._id } },
-        //   { new: true }
-        // );
+        await Community.findByIdAndUpdate(
+          { _id: args.communityId },
+          { $push: { posts: post._id } },
+          { new: true }
+        );
 
         return post;
       }

@@ -24,14 +24,28 @@ export const LOG_IN = gql`
   }
 `;
 
-// export const ADD_POST = gql``;
+export const ADD_POST = gql`
+  mutation addPost($postTitle: String!, $postText: String!, $communityId: ID!) {
+    addPost(
+      postTitle: $postTitle
+      postText: $postText
+      communityId: $communityId
+    ) {
+      _id
+      postTitle
+      postText
+      createdAt
+      username
+    }
+  }
+`;
 
 // export const ADD_COMMENT = gql``;
 
 // export const ADD_FRIEND = gql``;
 
 export const CREATE_COMMUNITY = gql`
-  mutation Mutation($communityName: String!, $communityBio: String!) {
+  mutation createCommunity($communityName: String!, $communityBio: String!) {
     createCommunity(
       communityName: $communityName
       communityBio: $communityBio

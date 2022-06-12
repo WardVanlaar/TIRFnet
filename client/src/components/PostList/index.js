@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { QUERY_POSTS } from "../../utils/queries";
 
 const PostList = ({ posts }) => {
   if (!posts.length) {
-    return <h3>No Posts Yet</h3>;
+    return <h3>No posts Yet</h3>;
   }
 
   return (
@@ -25,11 +27,7 @@ const PostList = ({ posts }) => {
             <div className="card-body">
               <p className="">{post.postText}</p>
               <Link to={`/post/${post._id}`}>
-                <p>{post.postText}</p>
-                <p className="mb-0">
-                  comments: {post.commentCount} || Click to{" "}
-                  {post.commentCount ? "see" : "start"} the discussion!
-                </p>
+                <p className="mb-0">comments: {post.commentCount}</p>
               </Link>
             </div>
           </div>

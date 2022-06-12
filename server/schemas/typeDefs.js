@@ -44,7 +44,7 @@ const typeDefs = gql`
     me: User
     users: [User]
     user(username: String!): User
-    posts(username: String): [Post]
+    posts(ids: [ID!]!): [Post]
     post(_id: ID!): Post
     communities: [Community]
     community(_id: ID!): Community
@@ -53,7 +53,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPost(postTitle: String!, postText: String!): Post
+    addPost(postTitle: String!, postText: String!, communityId: ID!): Post
     addComment(postId: ID!, commentBody: String!): Post
     addFriend(friendId: ID!): User
     createCommunity(communityName: String!, communityBio: String!): Community
