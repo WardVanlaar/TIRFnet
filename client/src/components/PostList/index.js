@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { QUERY_POSTS } from "../../utils/queries";
 
 const PostList = ({ posts }) => {
   if (!posts.length) {
@@ -16,7 +14,7 @@ const PostList = ({ posts }) => {
             <h3>{post.postTitle}</h3>
             <p className="card-header">
               <Link
-                to={`/profile/${post.username}`}
+                to={`/${post.username}`}
                 style={{ fontWeight: 700 }}
                 className="text-light"
               >

@@ -39,7 +39,23 @@ export const QUERY_POSTS = gql`
   }
 `;
 
-// export const QUERY_POST = gql``;
+export const QUERY_POST = gql`
+  query post($id: ID!) {
+    post(_id: $id) {
+      _id
+      postTitle
+      postText
+      createdAt
+      username
+      comments {
+        _id
+        commentBody
+        username
+        createdAt
+      }
+    }
+  }
+`;
 
 export const QUERY_COMMUNITIES = gql`
   {

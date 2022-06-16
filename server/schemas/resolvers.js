@@ -35,7 +35,7 @@ const resolvers = {
         .sort({ createdAt: -1 });
     },
     post: async (parent, { _id }) => {
-      return Post.findOne({ _id });
+      return Post.findOne({ _id }).populate("comments");
     },
     communities: async () => {
       return Community.find()
