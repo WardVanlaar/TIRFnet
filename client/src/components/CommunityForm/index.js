@@ -12,7 +12,7 @@ const CommunityForm = () => {
   const [createCommunity, { error }] = useMutation(CREATE_COMMUNITY, {
     update(cache, { data: { createCommunity } }) {
       try {
-        // update thought array's cache
+        // update communities array's cache
         // could potentially not exist yet, so wrap in a try/catch
         const { communities } = cache.readQuery({ query: QUERY_COMMUNITIES });
         cache.writeQuery({

@@ -18,7 +18,7 @@ const SingleCommunity = (props) => {
     variables: { id: communityId },
   });
 
-  const community = data?.community || {};
+  const Community = data?.community || {};
 
   const loggedIn = Auth.loggedIn();
 
@@ -30,15 +30,15 @@ const SingleCommunity = (props) => {
     <div>
       <div className="card">
         <div className="card-header">
-          <p>{community.communityName}</p>
+          <p>{Community.communityName}</p>
         </div>
         <div className="card-body">
-          <p>{community.communityBio}</p>
+          <p>{Community.communityBio}</p>
         </div>
       </div>
       {loggedIn && (
         <div className="post-holder">
-          <PostList posts={community.posts} />
+          <PostList posts={Community.posts} />
           <PostForm />
         </div>
       )}

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { useMutation } from "@apollo/client";
 import { ADD_POST } from "../../utils/mutations";
-import { QUERY_ME } from "../../utils/queries";
+import { QUERY_COMMUNITY } from "../../utils/queries";
 
 const PostForm = () => {
   const [postTitle, setTitle] = useState("");
@@ -12,13 +12,25 @@ const PostForm = () => {
   const { id: communityId } = useParams();
 
   const [addPost, { error }] = useMutation(ADD_POST, {
-    update(cache, { data: { addThought } }) {
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
-      });
+    update(cache, { data: { addPost } }) {
+      try {
+        // update community post object's cache
+        // could potentially not exist yet, so wrap in a try/catch
+        const { community } = cache.readQuery({
+          query: QUERY_COMMUNITY,
+          variables: { id: communityId },
+        });
+        console.log(community);
+        cache.writeQuery({
+          query: QUERY_COMMUNITY,
+          variables: { communityId },
+          data: {
+            community: { ...community, posts: [...community.posts, addPost] },
+          },
+        });
+      } catch (e) {
+        console.error(e);
+      }
     },
   });
 
