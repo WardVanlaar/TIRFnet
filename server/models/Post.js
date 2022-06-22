@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const commentSchema = require("./Comment");
 const dateFormat = require("../utils/dateFormat");
 
 const postSchema = new Schema(
@@ -25,11 +24,17 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    comments: [commentSchema],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
   },
   {
     toJSON: {
       getters: true,
+      virtuals: true,
     },
   }
 );

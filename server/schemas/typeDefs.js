@@ -25,6 +25,8 @@ const typeDefs = gql`
     commentBody: String
     createdAt: String
     username: String
+    votes: [User]
+    voteCount: Int
   }
 
   type Community {
@@ -54,7 +56,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addPost(postTitle: String!, postText: String!, communityId: ID!): Post
-    addComment(postId: ID!, commentBody: String!): Post
+    addComment(postId: ID!, commentBody: String!): Comment
     addFriend(friendId: ID!): User
     createCommunity(communityName: String!, communityBio: String!): Community
   }

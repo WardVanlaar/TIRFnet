@@ -3,14 +3,35 @@ import { useParams } from "react-router-dom";
 
 import { useMutation } from "@apollo/client";
 import { ADD_COMMENT } from "../../utils/mutations";
-import { QUERY_ME } from "../../utils/queries";
+import { QUERY_POST } from "../../utils/queries";
 
 const CommentForm = () => {
   const [commentBody, setBody] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
   const { id: postId } = useParams();
 
-  const [addComment, { error }] = useMutation(ADD_COMMENT, {});
+  const [addComment, { error }] = useMutation(ADD_COMMENT, {
+    update(cache, { data: { addComment } }) {
+      try {
+        // update community post object's cache
+        // could potentially not exist yet, so wrap in a try/catch
+        const { post } = cache.readQuery({
+          query: QUERY_POST,
+          variables: { id: postId },
+        });
+        console.log(post);
+        cache.writeQuery({
+          query: QUERY_POST,
+          variables: { id: postId },
+          data: {
+            post: { ...post, comments: [...post.comments, addComment] },
+          },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
 
   // update post text state based on target form value
   const handleChangeBody = (event) => {

@@ -20,10 +20,9 @@ const PostForm = () => {
           query: QUERY_COMMUNITY,
           variables: { id: communityId },
         });
-        console.log(community);
         cache.writeQuery({
           query: QUERY_COMMUNITY,
-          variables: { communityId },
+          variables: { id: communityId },
           data: {
             community: { ...community, posts: [...community.posts, addPost] },
           },
