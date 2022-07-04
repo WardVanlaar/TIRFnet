@@ -48,7 +48,7 @@ const CommentList = ({ comments }) => {
               </Link>{" "}
               commented on {comment.createdAt}
             </p>
-            <p className="voteCount">{comment.votes}</p>
+            <p className="voteCount">{comment.voteCount}</p>
           </div>
         ))}
     </div>

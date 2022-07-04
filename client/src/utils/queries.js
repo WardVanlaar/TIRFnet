@@ -52,6 +52,10 @@ export const QUERY_POST = gql`
         commentBody
         username
         createdAt
+        voteCount
+        votes {
+          _id
+        }
       }
     }
   }
