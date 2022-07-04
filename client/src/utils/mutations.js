@@ -72,3 +72,19 @@ export const CREATE_COMMUNITY = gql`
     }
   }
 `;
+
+export const UPVOTE = gql`
+  mutation upvote($commentId: ID!) {
+    upvote(commentId: $commentId) {
+      voteCount
+    }
+  }
+`;
+
+export const DOWNVOTE = gql`
+  mutation downvote($commentId: ID!) {
+    downvote(commentId: $commentId) {
+      voteCount
+    }
+  }
+`;

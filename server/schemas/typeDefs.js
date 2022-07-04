@@ -59,6 +59,8 @@ const typeDefs = gql`
     addComment(postId: ID!, commentBody: String!): Comment
     addFriend(friendId: ID!): User
     createCommunity(communityName: String!, communityBio: String!): Community
+    upvote(commentId: ID!): Comment
+    downvote(commentId: ID!): Comment
   }
 `;
 

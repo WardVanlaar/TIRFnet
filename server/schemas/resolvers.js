@@ -126,7 +126,7 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { friends: friendId } },
+          { $push: { friends: friendId } },
           { new: true }
         ).populate("friends");
 
@@ -145,6 +145,28 @@ const resolvers = {
         return community;
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+    upvote: async (parent, args, context) => {
+      if (context.user) {
+        const updatedcomment = await Comment.findByIdAndUpdate(
+          { _id: args.commentId },
+          { $addToSet: { votes: context.user._id } },
+          { new: true }
+        ).populate("votes");
+
+        return updatedcomment;
+      }
+    },
+    downvote: async (parent, args, context) => {
+      if (context.user) {
+        const updatedcomment = await Comment.findByIdAndUpdate(
+          { _id: args.commentId },
+          { $pull: { votes: context.user._id } },
+          { new: true }
+        ).populate("votes");
+
+        return updatedcomment;
+      }
     },
   },
 };
