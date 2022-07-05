@@ -1,12 +1,9 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { UPVOTE, DOWNVOTE } from "../../utils/mutations";
-import { QUERY_POST } from "../../utils/queries";
 
 const CommentList = ({ comments }) => {
-  const { id: postId } = useParams();
-
   const [upvote] = useMutation(UPVOTE);
   const [downvote] = useMutation(DOWNVOTE);
 
